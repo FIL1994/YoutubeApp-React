@@ -11,7 +11,8 @@ class SearchResults extends Component {
     if(_.isEmpty(items)) {
       return;
     }
-    console.log(items);
+
+    // console.log(items);
     return items.map(({etag, snippet: {title}}) => (
       <div key={etag}>{title}</div>
     ));
