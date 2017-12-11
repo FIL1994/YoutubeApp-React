@@ -23,7 +23,7 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    this.getSearchResults = _.debounce(this.props.getSearchResults, 200);
+    this.getSearchResults = _.debounce(this.props.getSearchResults, 230);
   }
 
   onSearchQueryChange(event) {
@@ -50,7 +50,7 @@ class Home extends Component {
           </div>
         </form>
         <Divider/>
-        <SearchResults items={items}/>
+        <SearchResults carouselID="searchResults" items={items}/>
       </Page>
     );
   }
