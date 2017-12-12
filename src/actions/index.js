@@ -31,7 +31,8 @@ export function getSearchResults(query) {
 }
 
 export function getVideoInfo(id) {
-  const requestURL = `${ROOT_URL}/videos${SIGNATURE}&id=${id}&part=contentDetails,snippet,suggestions`;
+  // part = snippet, statistics, player, topicDetails
+  const requestURL = `${ROOT_URL}/videos${SIGNATURE}&id=${id}&part=snippet,statistics,player`;
   return dispatch => {
     axios.get(requestURL)
       .then(response =>

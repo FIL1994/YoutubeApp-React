@@ -8,10 +8,10 @@ import {GET_VIDEO} from '../actions/types';
 export default function (state = {}, action) {
   switch(action.type) {
     case GET_VIDEO:
-      // if(!_.isEmpty(action.payload.data)) {
-      //   let {data, status} = action.payload;
-      //   return {..._.pick(data, ['items', 'pageInfo']), status};
-      // }
+      if(!_.isEmpty(action.payload.data)) {
+        let {data: {items}, status} = action.payload;
+        return {items, status};
+      }
       return action.payload;
     default:
       return state;

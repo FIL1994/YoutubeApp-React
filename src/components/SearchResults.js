@@ -3,6 +3,7 @@
  * @date 2017-12-11
  */
 import React, {Component, Fragment} from 'react';
+import {Link} from 'react-router-dom';
 import {EmptyState} from './SpectreCSS';
 import _ from 'lodash';
 
@@ -34,7 +35,9 @@ class SearchResults extends Component {
           }}) =>
             <li key={etag} className="tile">
               <div className="tile-icon">
-                <img src={medium.url} width={medium.width} height={medium.height}/>
+                <Link to={`/video/${videoId}`}>
+                  <img src={medium.url} width={medium.width} height={medium.height}/>
+                </Link>
               </div>
               <div className="tile-content" href={`https://www.youtube.com/watch?v=${videoId}`}>
                 <div className="tile-title h6">{title}</div>
