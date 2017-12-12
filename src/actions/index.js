@@ -44,11 +44,25 @@ export function getChannel(id) {
 }
 
 export function getPlaylists(id) {
-  const requestURL = `${ROOT_URL}/playlists${SIGNATURE}&channelId=${id}&part=snippet,player&maxResults=10`;
-  return dispatch =>
+  const requestURL = `${ROOT_URL}/playlists${SIGNATURE}&channelId=${id}&part=snippet&maxResults=5`;
+  return dispatch => {
     axios.get(requestURL)
-      .then(response => dispatch({
-        type: GET_PLAYLISTS,
-        payload: response
-      }));
+      .then(response => {
+        let promises = [];
+
+        response.data.items.forEach(({id: pID}) => {
+          const playlistsRequestURL = `${ROOT_URL}/playlistItems${SIGNATURE}&playlistId=${pID}&part=snippet&maxResults=8`;
+          promises.push(axios.get(playlistsRequestURL));
+        });
+
+        Promise.all(promises).then(values =>
+          dispatch({
+            type: GET_PLAYLISTS,
+            payload: values.map((v, index) => {
+              return {...v, title: response.data.items[index].snippet.title};
+            })
+          })
+        );
+      });
+  }
 }

@@ -8,11 +8,11 @@ import {GET_PLAYLISTS} from '../actions/types';
 export default function (state = {}, action) {
   switch(action.type) {
     case GET_PLAYLISTS:
-      if(!_.isEmpty(action.payload.data)) {
-        let {data: {items}, status} = action.payload;
-        return {items, status};
-      }
-      return action.payload;
+      let payloadData = action.payload.map(({ title, status, data: {items, etag} }) => {
+        return {title, etag, items, status};
+      });
+
+      return payloadData;
     default:
       return state;
   }

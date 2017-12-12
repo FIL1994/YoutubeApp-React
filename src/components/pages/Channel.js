@@ -5,7 +5,9 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 import {Page, EmptyState, Loading, Divider} from '../SpectreCSS';
+import _ from 'lodash';
 
+import VideoCarousel from '../VideoCarousel';
 import {getChannel, getPlaylists} from '../../actions/index';
 
 class Channel extends Component {
@@ -36,6 +38,27 @@ class Channel extends Component {
         <img src={url} width={width} height={height} alt={title}/>
         <Divider/>
         <p>{description}</p>
+        <Divider/>
+        {this.renderPlaylists()}
+      </Fragment>
+    );
+  }
+
+  renderPlaylists() {
+    const {playlists} = this.props;
+    if(_.isEmpty(playlists)) {
+      return;
+    }
+    if(playlists.length === 0) {
+      return <EmptyState title="No playlists found"/>;
+    }
+    return(
+      <Fragment>
+        {
+          playlists.map(({etag, items, title}) =>
+            <VideoCarousel key={etag} title={title} carouselID={`i-${etag}`} items={items}/>
+          )
+        }
       </Fragment>
     );
   }

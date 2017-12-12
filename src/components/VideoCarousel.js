@@ -10,7 +10,7 @@ class VideoCarousel extends Component {
   static propTypes = {
     carouselID: PropTypes.string.isRequired,
     title: PropTypes.string,
-    items: PropTypes.object.isRequired,
+    items: PropTypes.array.isRequired,
   };
 
   constructor(props) {
@@ -87,7 +87,7 @@ class VideoCarousel extends Component {
     return (
       <div id={carouselID} className="owl-carousel owl-theme">
         {
-          items.map(({etag, snippet: {title}, id: {videoId}}) =>
+          items.map(({etag, snippet: {title, resourceId: {videoId}}}) =>
             <div key={etag} className="item-video" data-merge="2">
               <a className="owl-video" href={`https://www.youtube.com/watch?v=${videoId}`}/>
             </div>
