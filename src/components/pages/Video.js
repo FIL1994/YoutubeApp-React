@@ -4,6 +4,7 @@
  */
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 import {Page, EmptyState, Divider} from '../SpectreCSS';
 
 import {getVideoInfo} from '../../actions/index';
@@ -11,8 +12,6 @@ import {getVideoInfo} from '../../actions/index';
 class Video extends Component {
   componentDidMount() {
     const {id} = this.props.match.params;
-    console.log("Video", id);
-
     this.props.getVideoInfo(id);
   }
 
@@ -45,7 +44,17 @@ class Video extends Component {
         </div>
         <Divider/>
         <div>
-          <div><span className="h6">{channelTitle}</span> - <span className="text-gray">{publishedDate}</span></div>
+          <div>
+            <span className="h6">
+              <Link to={`/channel/${channelId}`}>
+                {channelTitle}
+              </Link>
+            </span>
+            {` - `}
+            <span className="text-gray">
+              {publishedDate}
+            </span>
+          </div>
           <Divider/>
           <p>{description}</p>
         </div>

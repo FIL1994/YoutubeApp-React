@@ -43,7 +43,11 @@ class SearchResults extends Component {
                 <div className="tile-title h6">{title}</div>
                 <div className="tile-subtitle">
                   <div className="text-gray">
-                    <span>{channelTitle}</span>
+                    <span>
+                      <Link to={`/channel/${channelId}`}>
+                        {channelTitle}
+                      </Link>
+                    </span>
                     <span>- {(new Date(publishedAt)).toLocaleDateString()}</span>
                   </div>
                   <br/>

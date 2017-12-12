@@ -7,6 +7,7 @@ import {BrowserRouter, Switch, Route, Redirect} from 'react-router-dom';
 
 import Home from './pages/Home';
 import Video from './pages/Video';
+import Channel from './pages/Channel';
 
 class App extends Component {
   render() {
@@ -16,6 +17,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={Home}/>
             <Route path="/video/:id" component={Video}/>
+            <Route path="/channel/:id" component={Channel}/>
             <Redirect to="/"/>
           </Switch>
         </div>

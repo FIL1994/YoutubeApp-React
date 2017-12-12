@@ -5,9 +5,10 @@
 import {combineReducers} from 'redux';
 import searchReducer from './searchReducer';
 import videoReducer from './videoReducer';
+import channelReducer from './channelReducer';
 
 export default combineReducers({
-  // state: (state = {}) => state,
   search: searchReducer,
-  video: videoReducer
+  video: videoReducer,
+  channel: channelReducer
 });
