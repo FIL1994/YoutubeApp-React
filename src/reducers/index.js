@@ -6,9 +6,11 @@ import {combineReducers} from 'redux';
 import searchReducer from './searchReducer';
 import videoReducer from './videoReducer';
 import channelReducer from './channelReducer';
+import playlistsReducer from './playlistsReducer';
 
 export default combineReducers({
   search: searchReducer,
   video: videoReducer,
-  channel: channelReducer
+  channel: channelReducer,
+  playlists: playlistsReducer
 });

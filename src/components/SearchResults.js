@@ -36,11 +36,15 @@ class SearchResults extends Component {
             <li key={etag} className="tile">
               <div className="tile-icon">
                 <Link to={`/video/${videoId}`}>
-                  <img src={medium.url} width={medium.width} height={medium.height}/>
+                  <img src={medium.url} width={medium.width} height={medium.height} alt={title}/>
                 </Link>
               </div>
               <div className="tile-content" href={`https://www.youtube.com/watch?v=${videoId}`}>
-                <div className="tile-title h6">{title}</div>
+                <div className="tile-title h6">
+                  <Link to={`/video/${videoId}`}>
+                    {title}
+                    </Link>
+                </div>
                 <div className="tile-subtitle">
                   <div className="text-gray">
                     <span>

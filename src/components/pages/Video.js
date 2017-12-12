@@ -2,7 +2,7 @@
  * @author Philip Van Raalte
  * @date 2017-12-12
  */
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {Page, EmptyState, Divider} from '../SpectreCSS';
@@ -24,15 +24,13 @@ class Video extends Component {
       return <EmptyState title="No video found"/>;
     }
     const item = items[0];
-    const {etag, id, player: {embedHtml}, statistics: {dislikeCount, likeCount, viewCount},
+    const {player: {embedHtml}, statistics: {dislikeCount, likeCount, viewCount},
       snippet: {
         channelId, channelTitle, description, publishedAt, tags, title
       }} = item;
-
-    console.log("ITEM", item);
     const publishedDate = (new Date(publishedAt)).toLocaleString();
     return(
-      <div>
+      <Fragment>
         <h3>{title}</h3>
         <div dangerouslySetInnerHTML={{__html: embedHtml}}/>
         <div className="col-7 centered">
@@ -58,7 +56,7 @@ class Video extends Component {
           <Divider/>
           <p>{description}</p>
         </div>
-      </div>
+      </Fragment>
     );
   }
 
