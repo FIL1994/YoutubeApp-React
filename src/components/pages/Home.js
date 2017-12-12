@@ -50,7 +50,7 @@ class Home extends Component {
           </div>
         </form>
         <Divider/>
-        <SearchResults carouselID="searchResults" items={items}/>
+        <SearchResults items={items}/>
       </Page>
     );
   }

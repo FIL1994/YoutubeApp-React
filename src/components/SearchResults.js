@@ -3,6 +3,7 @@
  * @date 2017-12-11
  */
 import React, {Component, Fragment} from 'react';
+import {EmptyState} from './SpectreCSS';
 import _ from 'lodash';
 
 class SearchResults extends Component {
@@ -10,84 +11,46 @@ class SearchResults extends Component {
     super(props);
 
     this.state = {errorCount: 0};
-    // this.initOwlCarousel = _.debounce(this.initOwlCarousel, 100);
-  }
-
-  destroyCarousel() {
-    try {
-      $(`#${this.props.carouselID}`).owlCarousel('destroy');
-    } catch(e){}
-  }
-
-  initOwlCarousel() {
-    $(`#${this.props.carouselID}`).owlCarousel({
-      items:1,
-      merge:true,
-      loop:true,
-      margin:10,
-      video:true,
-      nav: true,
-      lazyLoad:true,
-      center:true,
-      responsive:{
-        480:{
-          items: 2
-        },
-        640:{
-          items: 4
-        }
-      }
-    });
-  }
-
-  componentDidCatch(error, info) {
-    // console.log(error, info);
-    console.log("Error!");
-    this.destroyCarousel();
-    this.setState({errorCount: this.state.errorCount + 1});
-    setTimeout(this.initOwlCarousel, 25);
-  }
-
-  componentWillUpdate(nextProps, nextState) {
-
-    if(!_.isEmpty(this.props.items) && !_.isEmpty(nextProps.items)) {
-      const filterLength = this.props.items.filter(i => !nextProps.items.find(nextI => i.etag === nextI.etag)).length;
-
-      if(filterLength === nextProps.items.length) {
-        this.destroyCarousel();
-      }
-    } else {
-      this.destroyCarousel();
-    }
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    this.initOwlCarousel();
   }
 
   renderItems() {
-    const {items, carouselID} = this.props;
+    const {items} = this.props;
 
     if(!_.isArray(items)) {
       return;
     }
 
     if(items.length === 0) {
-      return <div>No results found</div>;
+      return <EmptyState title="No results found"/>;
     }
 
     // console.log(items);
 
     return (
-      <div id={carouselID} className="owl-carousel owl-theme">
+      <ul className="text-left">
         {
-          items.map(({etag, snippet: {title}, id: {videoId}}) =>
-            <div key={etag} className="item-video" data-merge="2">
-              <a className="owl-video" href={`https://www.youtube.com/watch?v=${videoId}`}/>
-            </div>
+          items.map(({etag, id: {videoId}, snippet: {
+            title, description, channelId, channelTitle, publishedAt, thumbnails: {'default': standard, high, medium}
+          }}) =>
+            <li key={etag} className="tile">
+              <div className="tile-icon">
+                <img src={medium.url} width={medium.width} height={medium.height}/>
+              </div>
+              <div className="tile-content" href={`https://www.youtube.com/watch?v=${videoId}`}>
+                <div className="tile-title h6">{title}</div>
+                <div className="tile-subtitle">
+                  <div className="text-gray">
+                    <span>{channelTitle}</span>
+                    <span>- {(new Date(publishedAt)).toLocaleDateString()}</span>
+                  </div>
+                  <br/>
+                  <p>{description}</p>
+                </div>
+              </div>
+            </li>
           )
         }
-      </div>
+      </ul>
     );
   }
 

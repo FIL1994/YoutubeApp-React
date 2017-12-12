@@ -3,3 +3,4 @@
  * @date 2017-12-11
  */
 export const GET_SEARCH_RESULTS = "get_search_results";
+export const GET_VIDEO = "get_video";
