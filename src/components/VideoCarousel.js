@@ -46,6 +46,10 @@ class VideoCarousel extends Component {
     });
   }
 
+  componentDidMount() {
+    setTimeout(() => this.initOwlCarousel(), 35);
+  }
+
   componentDidCatch(error, info) {
     // console.log(error, info);
     console.log("Error!");

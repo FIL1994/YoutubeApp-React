@@ -8,6 +8,8 @@ import {GET_PLAYLISTS} from '../actions/types';
 export default function (state = {}, action) {
   switch(action.type) {
     case GET_PLAYLISTS:
+      console.log("PLAYLISTS", action.payload);
+
       let payloadData = action.payload.map(({ title, status, data: {items, etag} }) => {
         return {title, etag, items, status};
       });

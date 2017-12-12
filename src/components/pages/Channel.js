@@ -54,9 +54,14 @@ class Channel extends Component {
     }
     return(
       <Fragment>
+        <h4>Playlists</h4>
         {
-          playlists.map(({etag, items, title}) =>
-            <VideoCarousel key={etag} title={title} carouselID={`i-${etag}`} items={items}/>
+          playlists.map(({etag, items, title}) => (
+            <div className="col-11 centered" key={etag}>
+              <VideoCarousel title={title} carouselID={title.replace(/\s+/g, "")} items={items}/>
+              <Divider/>
+            </div>
+            )
           )
         }
       </Fragment>
