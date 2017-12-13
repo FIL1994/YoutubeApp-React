@@ -21,14 +21,21 @@ class MostPopular extends Component {
         {
           items.map(({id, snippet: {
             title, description, channelId, channelTitle, publishedAt, thumbnails: {
-              medium: {url, width, height}
+              medium: {url, width, height}, 'default': small
             }
           }}) =>
           <li key={id} className="tile">
             <div className="tile-icon">
-              <Link to={`/video/${id}`}>
-                <img src={url}/>
-              </Link>
+              <div className="hide-md">
+                <Link to={`/video/${id}`}>
+                  <img src={url} width={width} height={height} alt={title}/>
+                </Link>
+              </div>
+              <div className="show-md">
+                <Link to={`/video/${id}`}>
+                  <img src={small.url} width={small.width} height={small.height} alt={title}/>
+                </Link>
+              </div>
             </div>
             <div className="tile-content">
               <div className="tile-title h6">
@@ -46,7 +53,12 @@ class MostPopular extends Component {
                   <span>- {(new Date(publishedAt)).toLocaleString()}</span>
                 </div>
                 <br/>
-                <p>{_.truncate(description, {length: 350})}</p>
+                <p className="hide-md">
+                  {_.truncate(description, {length: 350})}
+                </p>
+                <p className="show-md">
+                  {_.truncate(description, {length: 160})}
+                </p>
               </div>
             </div>
           </li>
@@ -57,7 +69,6 @@ class MostPopular extends Component {
   }
 
   render() {
-    console.log("MOST POPULAR", this.props.mostPopular);
     const {items} = this.props.mostPopular;
 
     return(

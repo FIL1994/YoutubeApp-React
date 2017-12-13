@@ -23,13 +23,22 @@ class SearchResults extends Component {
       <ul className="text-left col-10 centered">
         {
           items.map(({id: {videoId}, snippet: {
-            title, description, channelId, channelTitle, publishedAt, thumbnails: {medium: {url, width, height}}
+            title, description, channelId, channelTitle, publishedAt, thumbnails: {
+              medium: {url, width, height}, 'default': small
+            }
           }}) =>
             <li key={videoId} className="tile">
               <div className="tile-icon">
-                <Link to={`/video/${videoId}`}>
-                  <img src={url} width={width} height={height} alt={title}/>
-                </Link>
+                <div className="hide-md">
+                  <Link to={`/video/${videoId}`}>
+                    <img src={url} width={width} height={height} alt={title}/>
+                  </Link>
+                </div>
+                <div className="show-md">
+                  <Link to={`/video/${videoId}`}>
+                    <img src={small.url} width={small.width} height={small.height} alt={title}/>
+                  </Link>
+                </div>
               </div>
               <div className="tile-content">
                 <div className="tile-title h6">

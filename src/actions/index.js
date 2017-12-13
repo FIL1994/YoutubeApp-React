@@ -35,7 +35,7 @@ export function getMostPopularVideos() {
 
 export function getVideoInfo(id) {
   // part = snippet, statistics, player, topicDetails
-  const requestURL = `${ROOT_URL}/videos${SIGNATURE}&id=${id}&part=snippet,statistics,player`;
+  const requestURL = `${ROOT_URL}/videos${SIGNATURE}&id=${id}&part=snippet,statistics`;
   return dispatch =>
     axios.get(requestURL)
       .then(response => dispatch({

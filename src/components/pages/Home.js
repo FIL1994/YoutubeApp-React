@@ -41,7 +41,7 @@ class Home extends Component {
       <Page className="centered text-center">
         <form>
           <div className="form-group">
-            <label className="form-label h5" htmlFor="input-search">Search for YouTube Videos:</label>
+            <label className="form-label h3" htmlFor="input-search">Search for YouTube Videos:</label>
             <input className="form-input" type="text" id="input-search" placeholder="Search" value={searchQuery}
                onChange={this.onSearchQueryChange}
             />

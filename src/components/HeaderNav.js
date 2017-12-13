@@ -17,7 +17,7 @@ class HeaderNav extends Component {
     return(
       <header className="navbar bg-dark">
         <section className="navbar-section">
-          <h5 className="pt-2 px-2">YouTube - React</h5>
+          <h5 className="pt-2 px-2">YouTube App - React</h5>
         </section>
         <section className="navbar-section">
           <NavLink to="/" className="btn btn-lg" activeClassName="btn-primary" isActive={this.isLinkActive}>

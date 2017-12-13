@@ -5,11 +5,19 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
-import {Page, EmptyState, Divider} from '../SpectreCSS';
+import {Page, EmptyState, Divider, Button} from '../SpectreCSS';
+import ResponsiveIFrame from '../ResponsiveIFrame';
+import _ from 'lodash';
 
 import {getVideoInfo} from '../../actions/index';
 
 class Video extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {showMore: false};
+  }
+
   componentDidMount() {
     const {id} = this.props.match.params;
     this.props.getVideoInfo(id);
@@ -17,6 +25,9 @@ class Video extends Component {
 
   renderVideoDetails() {
     const {video: {items}} = this.props;
+    const {showMore} = this.state;
+    console.log("VIDEO", this.props.video);
+
     if(items === undefined) {
       return <EmptyState title="Loading video details"/>;
     }
@@ -24,7 +35,7 @@ class Video extends Component {
       return <EmptyState title="No video found"/>;
     }
     const item = items[0];
-    const {player: {embedHtml}, statistics: {dislikeCount, likeCount, viewCount},
+    const {id, statistics: {dislikeCount, likeCount, viewCount},
       snippet: {
         channelId, channelTitle, description, publishedAt, tags, title
       }} = item;
@@ -32,12 +43,22 @@ class Video extends Component {
     return(
       <Fragment>
         <h3>{title}</h3>
-        <div dangerouslySetInnerHTML={{__html: embedHtml}}/>
-        <div className="col-7 centered">
+        <div className="col-8 col-sm-12 centered">
+          <ResponsiveIFrame src={`https://www.youtube.com/embed/${id}`}/>
+        </div>
+        <div className="col-7 col-sm-12 centered">
           <span className="float-left">{viewCount} views</span>
-          <span className="float-right">{likeCount} likes {dislikeCount} dislikes</span>
-          <br/>
-          {tags.map(t => <span key={t} className="chip">{t}</span>)}
+          <span className="float-right">{likeCount} likes | {dislikeCount} dislikes</span>
+          {
+            tags === undefined
+              ?
+                ''
+              :
+              <Fragment>
+                <br/>
+                {_.take(tags, 10).map(t => <span key={t} className="chip">{t}</span>)}
+              </Fragment>
+          }
           <br/>
         </div>
         <Divider/>
@@ -54,7 +75,13 @@ class Video extends Component {
             </span>
           </div>
           <Divider/>
-          <p>{description}</p>
+          <p>
+            {showMore ? description : _.truncate(description, {length: 350})}
+            <br/>
+            <Button onClick={() => this.setState({showMore: !showMore})}>
+              {showMore ? 'Show Less' : 'Show More'}
+            </Button>
+          </p>
         </div>
       </Fragment>
     );

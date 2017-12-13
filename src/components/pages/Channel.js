@@ -34,10 +34,23 @@ class Channel extends Component {
     } = item;
     return(
       <Fragment>
-        <h3>{title}</h3>
-        <img src={url} width={width} height={height} alt={title}/>
-        <Divider/>
-        <p>{description}</p>
+        <div className="tile text-left col-10 col-mx-auto">
+          <div className="tile-icon">
+            <img src={url} width={width} height={height} alt={title}/>
+          </div>
+          <div className="tile-content">
+            <div className="tile-title h3">
+              <h2>{title}</h2>
+            </div>
+            <div className="tile-subtitle">
+              {description}
+              <Divider/>
+              Subscribers: {subscriberCount} <br/>
+              Videos: {videoCount} <br/>
+              Views: {viewCount}
+            </div>
+          </div>
+        </div>
         <Divider/>
         {this.renderPlaylists()}
       </Fragment>
@@ -54,7 +67,7 @@ class Channel extends Component {
     }
     return(
       <Fragment>
-        <h4>Playlists</h4>
+        <h3>Playlists</h3>
         {
           playlists.map(({etag, items, title}) => (
             <div className="col-11 centered" key={etag}>

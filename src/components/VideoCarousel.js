@@ -33,7 +33,7 @@ class VideoCarousel extends Component {
     const {elementID} = this.state;
     if(elementID === '') {
       this.setState({
-        elementID: _.deburr(this.props.carouselID).replace(/\s|[0-9_]|\W|[#$%^&*()]/g, '')
+        elementID: _.deburr(this.props.carouselID).replace(/\s|\W|[#$%^&*()]/g, '')
       });
       return;
     }
