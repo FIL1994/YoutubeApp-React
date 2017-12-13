@@ -20,7 +20,7 @@ class SearchResults extends Component {
     }
 
     return (
-      <ul className="text-left">
+      <ul className="text-left col-10 centered">
         {
           items.map(({id: {videoId}, snippet: {
             title, description, channelId, channelTitle, publishedAt, thumbnails: {medium: {url, width, height}}
@@ -31,11 +31,11 @@ class SearchResults extends Component {
                   <img src={url} width={width} height={height} alt={title}/>
                 </Link>
               </div>
-              <div className="tile-content" href={`https://www.youtube.com/watch?v=${videoId}`}>
+              <div className="tile-content">
                 <div className="tile-title h6">
                   <Link to={`/video/${videoId}`}>
                     {title}
-                    </Link>
+                  </Link>
                 </div>
                 <div className="tile-subtitle">
                   <div className="text-gray">

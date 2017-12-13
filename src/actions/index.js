@@ -22,14 +22,14 @@ export function getSearchResults(query) {
       }));
 }
 
-function getMostPopularVideos() {
-  const maxResults = 10;
+export function getMostPopularVideos() {
+  const maxResults = 15;
   const requestURL = `${ROOT_URL}/videos${SIGNATURE}&chart=mostPopular&part=snippet&maxResults=${maxResults}`;
   return dispatch =>
     axios.get(requestURL)
       .then(response => dispatch({
         type: GET_MOST_POPULAR_VIDEOS,
-        paylaod: response
+        payload: response
       }));
 }
 

@@ -16,17 +16,29 @@ class VideoCarousel extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {errorCount: 0};
+    this.state = {
+      errorCount: 0,
+      elementID: ''
+    };
   }
 
   destroyCarousel() {
-    try {
-      $(`#${this.props.carouselID}`).owlCarousel('destroy');
-    } catch(e){}
+    const {elementID} = this.state;
+    if(elementID !== '') {
+      $(`#${elementID}`).owlCarousel('destroy');
+    }
   }
 
   initOwlCarousel() {
-    $(`#${this.props.carouselID}`).owlCarousel({
+    const {elementID} = this.state;
+    if(elementID === '') {
+      this.setState({
+        elementID: _.deburr(this.props.carouselID).replace(/\s|[0-9_]|\W|[#$%^&*()]/g, '')
+      });
+      return;
+    }
+
+    $(`#${elementID}`).owlCarousel({
       items:1,
       merge:true,
       loop:true,
@@ -76,7 +88,8 @@ class VideoCarousel extends Component {
   }
 
   renderItems() {
-    const {items, carouselID} = this.props;
+    const {items} = this.props;
+    const {elementID} = this.state;
 
     if(!_.isArray(items)) {
       return;
@@ -89,7 +102,7 @@ class VideoCarousel extends Component {
     // console.log(items);
 
     return (
-      <div id={carouselID} className="owl-carousel owl-theme">
+      <div id={elementID} className="owl-carousel owl-theme">
         {
           items.map(({etag, snippet: {title, resourceId: {videoId}}}) =>
             <div key={etag} className="item-video" data-merge="2">
