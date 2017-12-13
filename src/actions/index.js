@@ -4,7 +4,7 @@
  */
 import axios from 'axios';
 import {APIKey} from '../config/keys';
-import {GET_SEARCH_RESULTS, GET_VIDEO, GET_CHANNEL, GET_PLAYLISTS} from './types';
+import {GET_SEARCH_RESULTS, GET_VIDEO, GET_CHANNEL, GET_PLAYLISTS, GET_MOST_POPULAR_VIDEOS} from './types';
 
 //API info
 const ROOT_URL = "https://www.googleapis.com/youtube/v3";
@@ -19,6 +19,17 @@ export function getSearchResults(query) {
       .then(response => dispatch({
         type: GET_SEARCH_RESULTS,
         payload: response
+      }));
+}
+
+function getMostPopularVideos() {
+  const maxResults = 10;
+  const requestURL = `${ROOT_URL}/videos${SIGNATURE}&chart=mostPopular&part=snippet&maxResults=${maxResults}`;
+  return dispatch =>
+    axios.get(requestURL)
+      .then(response => dispatch({
+        type: GET_MOST_POPULAR_VIDEOS,
+        paylaod: response
       }));
 }
 

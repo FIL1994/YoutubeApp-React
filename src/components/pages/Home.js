@@ -39,11 +39,9 @@ class Home extends Component {
 
     return(
       <Page className="centered text-center">
-        <h1>YouTube App React</h1>
-        <Divider size={10}/>
         <form>
           <div className="form-group">
-            <label className="form-label h5" htmlFor="input-search">Search:</label>
+            <label className="form-label h5" htmlFor="input-search">Search for YouTube Videos:</label>
             <input className="form-input" type="text" id="input-search" placeholder="Search" value={searchQuery}
                onChange={this.onSearchQueryChange}
             />

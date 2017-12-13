@@ -7,10 +7,12 @@ import searchReducer from './searchReducer';
 import videoReducer from './videoReducer';
 import channelReducer from './channelReducer';
 import playlistsReducer from './playlistsReducer';
+import mostPopularVideosReducer from './mostPopularVideosReducer';
 
 export default combineReducers({
   search: searchReducer,
   video: videoReducer,
   channel: channelReducer,
-  playlists: playlistsReducer
+  playlists: playlistsReducer,
+  mostPopular: mostPopularVideosReducer
 });

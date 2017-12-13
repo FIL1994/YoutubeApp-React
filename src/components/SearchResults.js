@@ -14,29 +14,21 @@ class SearchResults extends Component {
     this.state = {errorCount: 0};
   }
 
-  renderItems() {
-    const {items} = this.props;
-
-    if(!_.isArray(items)) {
-      return;
-    }
-
+  renderItems(items) {
     if(items.length === 0) {
       return <EmptyState title="No results found"/>;
     }
 
-    // console.log(items);
-
     return (
       <ul className="text-left">
         {
-          items.map(({etag, id: {videoId}, snippet: {
-            title, description, channelId, channelTitle, publishedAt, thumbnails: {'default': standard, high, medium}
+          items.map(({id: {videoId}, snippet: {
+            title, description, channelId, channelTitle, publishedAt, thumbnails: {medium: {url, width, height}}
           }}) =>
-            <li key={etag} className="tile">
+            <li key={videoId} className="tile">
               <div className="tile-icon">
                 <Link to={`/video/${videoId}`}>
-                  <img src={medium.url} width={medium.width} height={medium.height} alt={title}/>
+                  <img src={url} width={width} height={height} alt={title}/>
                 </Link>
               </div>
               <div className="tile-content" href={`https://www.youtube.com/watch?v=${videoId}`}>
@@ -66,10 +58,20 @@ class SearchResults extends Component {
   }
 
   render() {
+    const {items} = this.props;
+
     return(
       <Fragment>
-        <h5>Search Results</h5>
-        {this.renderItems()}
+        {
+          !_.isArray(items)
+            ?
+              ''
+            :
+            <Fragment>
+              <h5>Search Results</h5>
+              {this.renderItems(items)}
+              </Fragment>
+        }
       </Fragment>
     );
   }

@@ -18,6 +18,10 @@ footer {
   flex: 1;
 }
 
+.navbar-section .btn {
+  height: 100%;
+}
+
 .page {
   width: 95%;
   margin-top: 10px;

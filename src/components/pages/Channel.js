@@ -69,8 +69,6 @@ class Channel extends Component {
   }
 
   render() {
-    console.log("Playlists", this.props.playlists);
-
     return(
       <Page className="centered text-center">
         {this.renderChannelDetails()}
