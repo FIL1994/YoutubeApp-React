@@ -81,10 +81,15 @@ class Video extends Component {
           <Divider/>
           <p>
             {showMore ? description : _.truncate(description, {length: 350})}
-            <br/>
-            <Button onClick={() => this.setState({showMore: !showMore})}>
-              {showMore ? 'Show Less' : 'Show More'}
-            </Button>
+            {
+              description.length < 350 ? '' :
+                <Fragment>
+                  <br/>
+                  <a onClick={() => this.setState({showMore: !showMore})}>
+                  {showMore ? 'Show Less' : 'Show More'}
+                  </a>
+                </Fragment>
+            }
           </p>
         </div>
       </Fragment>
