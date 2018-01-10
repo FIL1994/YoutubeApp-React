@@ -10,6 +10,7 @@ import ResponsiveIFrame from '../ResponsiveIFrame';
 import _ from 'lodash';
 
 import {getVideoInfo} from '../../actions/index';
+import {formatNum} from '../../util';
 
 class Video extends Component {
   constructor(props) {
@@ -26,7 +27,6 @@ class Video extends Component {
   renderVideoDetails() {
     const {video: {items}} = this.props;
     const {showMore} = this.state;
-    console.log("VIDEO", this.props.video);
 
     if(items === undefined) {
       return <EmptyState title="Loading video details"/>;
@@ -35,11 +35,15 @@ class Video extends Component {
       return <EmptyState title="No video found"/>;
     }
     const item = items[0];
-    const {id, statistics: {dislikeCount, likeCount, viewCount},
+    const {
+      id,
+      statistics: {dislikeCount, likeCount, viewCount},
       snippet: {
         channelId, channelTitle, description, publishedAt, tags, title
-      }} = item;
+      }
+    } = item;
     const publishedDate = (new Date(publishedAt)).toLocaleString();
+
     return(
       <Fragment>
         <h3>{title}</h3>
@@ -47,8 +51,8 @@ class Video extends Component {
           <ResponsiveIFrame src={`https://www.youtube.com/embed/${id}`}/>
         </div>
         <div className="col-7 col-sm-12 centered">
-          <span className="float-left">{viewCount} views</span>
-          <span className="float-right">{likeCount} likes | {dislikeCount} dislikes</span>
+          <span className="float-left">{formatNum(viewCount)} views</span>
+          <span className="float-right">{formatNum(likeCount)} likes | {formatNum(dislikeCount)} dislikes</span>
           {
             tags === undefined
               ?

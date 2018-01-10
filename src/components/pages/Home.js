@@ -39,7 +39,7 @@ class Home extends Component {
 
     return(
       <Page className="centered text-center">
-        <form>
+        <form onSubmit={e => e.preventDefault() && this.onSearchQueryChange()}>
           <div className="form-group">
             <label className="form-label h3" htmlFor="input-search">Search for YouTube Videos:</label>
             <input className="form-input" type="text" id="input-search" placeholder="Search" value={searchQuery}

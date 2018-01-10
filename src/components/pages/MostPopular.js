@@ -2,13 +2,14 @@
  * @author Philip Van Raalte
  * @date 2017-12-13
  */
-import React, {Component, Fragment} from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
-import {Page, EmptyState, Loading, Divider} from '../SpectreCSS';
+import {Page, Loading, Divider} from '../SpectreCSS';
 import _ from 'lodash';
 
 import {getMostPopularVideos} from '../../actions/index';
+import {formatDate} from '../../util';
 
 class MostPopular extends Component {
   componentDidMount() {
@@ -50,7 +51,7 @@ class MostPopular extends Component {
                       {channelTitle}
                     </Link>
                   </span>
-                  <span>- {(new Date(publishedAt)).toLocaleString()}</span>
+                  <span>- {formatDate(publishedAt)}</span>
                 </div>
                 <br/>
                 <p className="hide-md">

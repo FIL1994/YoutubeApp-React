@@ -7,6 +7,8 @@ import {Link} from 'react-router-dom';
 import {EmptyState} from './SpectreCSS';
 import _ from 'lodash';
 
+import {formatDate} from '../util';
+
 class SearchResults extends Component {
   constructor(props) {
     super(props);
@@ -53,7 +55,7 @@ class SearchResults extends Component {
                         {channelTitle}
                       </Link>
                     </span>
-                    <span>- {(new Date(publishedAt)).toLocaleDateString()}</span>
+                    <span>- {formatDate(publishedAt)}</span>
                   </div>
                   <br/>
                   <p>{description}</p>

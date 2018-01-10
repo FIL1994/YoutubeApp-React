@@ -9,6 +9,7 @@ import _ from 'lodash';
 
 import VideoCarousel from '../VideoCarousel';
 import {getChannel, getPlaylists} from '../../actions/index';
+import {formatNum} from '../../util';
 
 class Channel extends Component {
   componentDidMount() {
@@ -45,9 +46,9 @@ class Channel extends Component {
             <div className="tile-subtitle">
               {description}
               <Divider/>
-              Subscribers: {subscriberCount} <br/>
-              Videos: {videoCount} <br/>
-              Views: {viewCount}
+              Subscribers: {formatNum(subscriberCount)} <br/>
+              Videos: {formatNum(videoCount)} <br/>
+              Views: {formatNum(viewCount)}
             </div>
           </div>
         </div>
