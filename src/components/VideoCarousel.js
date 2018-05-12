@@ -2,15 +2,15 @@
  * @author Philip Van Raalte
  * @date 2017-12-12
  */
-import React, {Component, Fragment} from 'react';
-import PropTypes from 'prop-types';
-import _ from 'lodash';
+import React, { Component, Fragment } from "react";
+import PropTypes from "prop-types";
+import _ from "lodash";
 
 class VideoCarousel extends Component {
   static propTypes = {
     carouselID: PropTypes.string.isRequired,
     title: PropTypes.string,
-    items: PropTypes.array.isRequired,
+    items: PropTypes.array.isRequired
   };
 
   constructor(props) {
@@ -18,40 +18,43 @@ class VideoCarousel extends Component {
 
     this.state = {
       errorCount: 0,
-      elementID: ''
+      elementID: ""
     };
   }
 
   destroyCarousel() {
-    const {elementID} = this.state;
-    if(elementID !== '') {
-      $(`#${elementID}`).owlCarousel('destroy');
+    const { elementID } = this.state;
+    if (elementID !== "") {
+      $(`#${elementID}`).owlCarousel("destroy");
     }
   }
 
   initOwlCarousel() {
-    const {elementID} = this.state;
-    if(elementID === '') {
+    const { elementID } = this.state;
+    if (elementID === "") {
       this.setState({
-        elementID: _.deburr(this.props.carouselID).replace(/\s|\W|[#$%^&*()]/g, '')
+        elementID: _.deburr(this.props.carouselID).replace(
+          /\s|\W|[#$%^&*()]/g,
+          ""
+        )
       });
       return;
     }
 
     $(`#${elementID}`).owlCarousel({
-      items:1,
-      merge:true,
-      loop:true,
-      margin:10,
-      video:true,
+      items: 1,
+      merge: true,
+      loop: true,
+      margin: 10,
+      video: true,
       nav: true,
-      lazyLoad:true,
-      center:true,
-      responsive:{
-        480:{
+      lazyLoad: true,
+      center: true,
+      responsive: {
+        480: {
           items: 2
         },
-        640:{
+        640: {
           items: 4
         }
       }
@@ -66,16 +69,17 @@ class VideoCarousel extends Component {
     // console.log(error, info);
     console.log("Error!");
     this.destroyCarousel();
-    this.setState({errorCount: this.state.errorCount + 1});
+    this.setState({ errorCount: this.state.errorCount + 1 });
     setTimeout(this.initOwlCarousel, 25);
   }
 
   componentWillUpdate(nextProps, nextState) {
+    if (!_.isEmpty(this.props.items) && !_.isEmpty(nextProps.items)) {
+      const filterLength = this.props.items.filter(
+        i => !nextProps.items.find(nextI => i.etag === nextI.etag)
+      ).length;
 
-    if(!_.isEmpty(this.props.items) && !_.isEmpty(nextProps.items)) {
-      const filterLength = this.props.items.filter(i => !nextProps.items.find(nextI => i.etag === nextI.etag)).length;
-
-      if(filterLength === nextProps.items.length) {
+      if (filterLength === nextProps.items.length) {
         this.destroyCarousel();
       }
     } else {
@@ -88,14 +92,14 @@ class VideoCarousel extends Component {
   }
 
   renderItems() {
-    const {items} = this.props;
-    const {elementID} = this.state;
+    const { items } = this.props;
+    const { elementID } = this.state;
 
-    if(!_.isArray(items)) {
+    if (!_.isArray(items)) {
       return;
     }
 
-    if(items.length === 0) {
+    if (items.length === 0) {
       return <div>No results found</div>;
     }
 
@@ -103,19 +107,20 @@ class VideoCarousel extends Component {
 
     return (
       <div id={elementID} className="owl-carousel owl-theme">
-        {
-          items.map(({etag, snippet: {title, resourceId: {videoId}}}) =>
-            <div key={etag} className="item-video" data-merge="2">
-              <a className="owl-video" href={`https://www.youtube.com/watch?v=${videoId}`}/>
-            </div>
-          )
-        }
+        {items.map(({ etag, snippet: { title, resourceId: { videoId } } }) => (
+          <div key={etag} className="item-video" data-merge="2">
+            <a
+              className="owl-video"
+              href={`https://www.youtube.com/watch?v=${videoId}`}
+            />
+          </div>
+        ))}
       </div>
     );
   }
 
   render() {
-    return(
+    return (
       <Fragment>
         <h5>{this.props.title}</h5>
         {this.renderItems()}

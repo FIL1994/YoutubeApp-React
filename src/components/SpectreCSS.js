@@ -6,8 +6,8 @@
  *
  * Functional components for the Spectre CSS library.
  */
-import React from 'react';
-import _ from 'lodash';
+import React from "react";
+import _ from "lodash";
 
 /**
  * Prepends the className from props to the component default className.
@@ -16,7 +16,7 @@ import _ from 'lodash';
  * @returns {String} JSX Component
  */
 function addClass(defaultClass, newClass) {
-  return `${_.isString(newClass) ? newClass : ''} ${defaultClass}`.trim();
+  return `${_.isString(newClass) ? newClass : ""} ${defaultClass}`.trim();
 }
 
 /**
@@ -25,26 +25,26 @@ function addClass(defaultClass, newClass) {
  * @returns {XML} JSX Component
  * @constructor
  */
-let Button = (props) => {
-  const {small, large, block, primary} = props;
+let Button = props => {
+  const { small, large, block, primary } = props;
   let className = "btn";
 
   // allow size to be passed as a string or a number
-  if(!_.isEmpty(props.size) || _.isNumber(props.size)) {
+  if (!_.isEmpty(props.size) || _.isNumber(props.size)) {
     className = `${className} col-${props.size.toString().trim()}`;
   }
 
-  if(large) {
+  if (large) {
     className = addClass(className, "btn-lg");
-  } else if(small) {
+  } else if (small) {
     className = addClass(className, "btn-sm");
   }
 
-  if(block) {
+  if (block) {
     className = addClass(className, "btn-block");
   }
 
-  if(primary) {
+  if (primary) {
     className = addClass(className, "btn-primary");
   }
 
@@ -52,16 +52,16 @@ let Button = (props) => {
   className = addClass(className, props.className);
 
   // remove unnecessary props
-  let myProps = _.omit(props, ['small', 'large', 'block', 'primary']);
+  let myProps = _.omit(props, ["small", "large", "block", "primary"]);
 
-  return <button {...myProps} className={className}/>;
+  return <button {...myProps} className={className} />;
 };
 
 Button.defaultProps = {
   type: "button"
 };
 
-export {Button};
+export { Button };
 
 /**
  * A divider for separating elements.
@@ -69,16 +69,19 @@ export {Button};
  * @returns {XML} JSX Component
  * @constructor
  */
-export const Divider = (props) => {
+export const Divider = props => {
   // add the className prop to the className
   let className = addClass("divider", props.className);
 
   // allow size to be passed as a string or a number
-  if(!_.isEmpty(props.size) || _.isNumber(props.size)) {
-    className = addClass(className, `col-${props.size.toString().trim()} centered`);
+  if (!_.isEmpty(props.size) || _.isNumber(props.size)) {
+    className = addClass(
+      className,
+      `col-${props.size.toString().trim()} centered`
+    );
   }
 
-  return <div {...props} className={className}/>;
+  return <div {...props} className={className} />;
 };
 
 /**
@@ -87,11 +90,11 @@ export const Divider = (props) => {
  * @returns {XML} JSX Component
  * @constructor
  */
-export const Loading = (props) => {
-  const {large} = props;
+export const Loading = props => {
+  const { large } = props;
   let className = "loading";
 
-  if(large) {
+  if (large) {
     className = addClass(className, "loading-lg");
   }
 
@@ -99,9 +102,9 @@ export const Loading = (props) => {
   className = addClass(className, props.className);
 
   // remove unnecessary props
-  let myProps = _.omit(props, ['large']);
+  let myProps = _.omit(props, ["large"]);
 
-  return <div {...myProps} className={className}/>;
+  return <div {...myProps} className={className} />;
 };
 
 /**
@@ -110,11 +113,11 @@ export const Loading = (props) => {
  * @returns {XML} JSX Component
  * @constructor
  */
-export const Page = (props) => {
+export const Page = props => {
   // add the className prop to the className
   let className = addClass("page container", props.className);
 
-  return <div {...props} className={className}/>;
+  return <div {...props} className={className} />;
 };
 
 /**
@@ -123,28 +126,33 @@ export const Page = (props) => {
  * @returns {XML} JSX Component
  * @constructor
  */
-export const Parallax = (props) => {
-  const {children, title, topLeft, topRight, bottomLeft, bottomRight} = props;
+export const Parallax = props => {
+  const { children, title, topLeft, topRight, bottomLeft, bottomRight } = props;
 
   // add the className prop to the className
   let className = addClass("parallax", props.className);
 
   // remove unnecessary props
-  let myProps = _.omit(props, ['children', 'title', 'topLeft', 'topRight', 'bottomLeft', 'bottomRight']);
+  let myProps = _.omit(props, [
+    "children",
+    "title",
+    "topLeft",
+    "topRight",
+    "bottomLeft",
+    "bottomRight"
+  ]);
 
   return (
     <div {...myProps} className={className}>
-      <div className="parallax-top-left" onClick={topLeft}/>
-      <div className="parallax-top-right" onClick={topRight}/>
-      <div className="parallax-bottom-left" onClick={bottomLeft}/>
-      <div className="parallax-bottom-right" onClick={bottomRight}/>
+      <div className="parallax-top-left" onClick={topLeft} />
+      <div className="parallax-top-right" onClick={topRight} />
+      <div className="parallax-bottom-left" onClick={bottomLeft} />
+      <div className="parallax-bottom-right" onClick={bottomRight} />
       <div className="parallax-content">
         <div className="parallax-front">
           <h2>{title}</h2>
         </div>
-        <div className="parallax-back">
-          {children}
-        </div>
+        <div className="parallax-back">{children}</div>
       </div>
     </div>
   );
@@ -156,14 +164,14 @@ export const Parallax = (props) => {
  * @returns {XML} JSX Component
  * @constructor
  */
-export const Panel = (props) => {
-  const {children, title, footer} = props;
+export const Panel = props => {
+  const { children, title, footer } = props;
 
   // add the className prop to the className
   let className = addClass("panel", props.className);
 
   // remove unnecessary props
-  let myProps = _.omit(props, ['children', 'title', 'footer']);
+  let myProps = _.omit(props, ["children", "title", "footer"]);
 
   return (
     <div {...myProps} className={className}>
@@ -172,12 +180,8 @@ export const Panel = (props) => {
           <h5>{title}</h5>
         </div>
       </div>
-      <div className="panel-body">
-        {children}
-      </div>
-      <div className="panel-footer">
-        {footer}
-      </div>
+      <div className="panel-body">{children}</div>
+      <div className="panel-footer">{footer}</div>
     </div>
   );
 };
@@ -188,21 +192,19 @@ export const Panel = (props) => {
  * @returns {XML} JSX Component
  * @constructor
  */
-export const EmptyState = (props) => {
-  const {children, title} = props;
+export const EmptyState = props => {
+  const { children, title } = props;
 
   // add the className prop to the className
   let className = addClass("empty", props.className);
 
   // remove unnecessary props
-  let myProps = _.omit(props, ['children', 'title']);
+  let myProps = _.omit(props, ["children", "title"]);
 
-  return(
+  return (
     <div {...myProps} className={className}>
       <div className="empty-title h5">{title}</div>
-      <div className="empty-action">
-        {children}
-      </div>
+      <div className="empty-action">{children}</div>
     </div>
   );
 };

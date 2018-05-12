@@ -4,13 +4,13 @@
  * @author Philip Van Raalte
  * @date 2017-12-11
  */
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import _ from 'lodash';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import _ from "lodash";
 
-import {getSearchResults} from '../../actions/index';
-import {Divider, Page} from '../SpectreCSS';
-import SearchResults from '../SearchResults';
+import { getSearchResults } from "../../actions/index";
+import { Divider, Page } from "../SpectreCSS";
+import SearchResults from "../SearchResults";
 
 class Home extends Component {
   constructor(props) {
@@ -19,7 +19,7 @@ class Home extends Component {
     this.onSearchQueryChange = this.onSearchQueryChange.bind(this);
     this.getSearchResults = () => {};
 
-    this.state = {searchQuery: ''};
+    this.state = { searchQuery: "" };
   }
 
   componentDidMount() {
@@ -28,27 +28,34 @@ class Home extends Component {
 
   onSearchQueryChange(event) {
     const searchQuery = event.target.value;
-    this.setState({searchQuery});
+    this.setState({ searchQuery });
     this.getSearchResults(searchQuery);
   }
 
   render() {
-    const {searchQuery} = this.state;
-    const {search} = this.props;
+    const { searchQuery } = this.state;
+    const { search } = this.props;
     let items = search === undefined ? null : search.items;
 
-    return(
+    return (
       <Page className="centered text-center">
         <form onSubmit={e => e.preventDefault() && this.onSearchQueryChange()}>
           <div className="form-group">
-            <label className="form-label h3" htmlFor="input-search">Search for YouTube Videos:</label>
-            <input className="form-input" type="text" id="input-search" placeholder="Search" value={searchQuery}
-               onChange={this.onSearchQueryChange}
+            <label className="form-label h3" htmlFor="input-search">
+              Search for YouTube Videos:
+            </label>
+            <input
+              className="form-input"
+              type="text"
+              id="input-search"
+              placeholder="Search"
+              value={searchQuery}
+              onChange={this.onSearchQueryChange}
             />
           </div>
         </form>
-        <Divider/>
-        <SearchResults items={items}/>
+        <Divider />
+        <SearchResults items={items} />
       </Page>
     );
   }
@@ -60,4 +67,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, {getSearchResults})(Home);
+export default connect(mapStateToProps, { getSearchResults })(Home);

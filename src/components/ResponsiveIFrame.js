@@ -2,10 +2,10 @@
  * @author Philip Van Raalte
  * @date 2017-12-13
  */
-import React from 'react';
+import React from "react";
 
-export default (props) => {
-  return(
+export default props => {
+  return (
     <div className="iframe-container">
       <iframe
         frameBorder={0}
@@ -16,4 +16,4 @@ export default (props) => {
       />
     </div>
   );
-}
+};
