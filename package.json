@@ -10,6 +10,10 @@
   "author": "Philip Van Raalte",
   "license": "ISC",
   "release-it": {
+    "git": {
+      "commitMessage": "v${version}",
+      "tagAnnotation": "v${version}"
+    },
     "github": {
       "release": true
     },
