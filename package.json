@@ -9,6 +9,14 @@
   },
   "author": "Philip Van Raalte",
   "license": "ISC",
+  "release-it": {
+    "github": {
+      "release": true
+    },
+    "npm": {
+      "publish": false
+    }
+  },
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",
